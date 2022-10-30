@@ -14,6 +14,8 @@ int main(){
     printf("Enter a time limit (years):");
     scanf("%f", &limit);
 
+    FILE *fp = fopen("output.csv", "ab+");
+
     while(t<limit){
 
         // Food delta to make the population change a bit more interesting
@@ -30,7 +32,12 @@ int main(){
             
         t += dt;
         
-        // Print: currentTime : currentPopulation (foodAvailable) @ populationGrowth
-        printf("%.2f : %.f (%i) @ %.2f\n",t,population,food,dc);
+        // Print and write to CVS file: currentTime,currentPopulation,foodAvailable,populationGrowth
+        printf("%.2f,%.f,%i,%.2f\n",t,population,food,dc);
+        fprintf(fp,"%.2f,%.f,%i,%.2f\n",t,population,food,dc);
     }
+    
+    fclose(fp);
+
+    return 0;
 }
